@@ -9,11 +9,17 @@ Este recurso fornece uma solução completa para administração de mecânicas, 
 Projetado em Lua, o sistema possui uma estrutura limpa, modular e otimizada, facilitando manutenção e adaptação para diferentes servidores e frameworks.
 
 🚀 Funcionalidades
+
 👥 Gerenciamento completo de membros
+
 🛡️ Sistema de cargos e permissões configuráveis
+
 🗄️ Integração com banco de dados (MySQL)
+
 ⚡ Interface leve, rápida e intuitiva
+
 🔧 Código modular e de fácil adaptação
+
 📊 Organização eficiente das informações
 
 ⚙️ Requisitos
