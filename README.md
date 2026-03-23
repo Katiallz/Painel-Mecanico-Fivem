@@ -31,17 +31,24 @@ Framework compatível (adaptável)
 
 📥 Instalação
 Baixe ou clone o repositório:
+
 git clone https://github.com/Katiallz/Painel-Mecanico-Fivem
 Coloque a pasta dentro de:
+
 resources/[local]/
+
 Importe o banco de dados (caso necessário)
 Adicione no seu server.cfg:
+
 ensure Painel-Mecanico-Fivem
 Reinicie o servidor
+
 🛠️ Configuração
+
 Ajuste permissões conforme sua organização
 Configure integração com seu banco de dados
 Adapte funções conforme seu framework
+
 📷 Preview
 
 (Adicione prints aqui futuramente para deixar ainda mais profissional)
@@ -56,7 +63,9 @@ Autor: Katiaallz
 É obrigatório manter os créditos ao autor.
 Não é permitido utilizar, modificar ou redistribuir
 este recurso sem a devida atribuição.
+
 📄 Licença
 
 Este projeto não possui licença pública definida.
+
 O uso está condicionado à autorização do autor.
