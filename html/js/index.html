@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Mecânico - Ryze RP</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div id="med-container" class="hidden">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <span>Ryze Custom</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-btn active" data-page="dashboard">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-btn" id="nav-bank" data-page="banco" style="display:none;">
+                    <i class="fas fa-university"></i>
+                    <span>Banco</span>
+                </button>
+                <button class="nav-btn" data-page="buscar">
+                    <i class="fas fa-search"></i>
+                    <span>Buscar</span>
+                </button>
+                <button class="nav-btn" data-page="diagnosticos">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Vendas e Serviços</span>
+                </button>
+                <button class="nav-btn" data-page="guinchos">
+                    <i class="fas fa-truck-pickup"></i>
+                    <span>Guinchos e SOS</span>
+                </button>
+                <button class="nav-btn" data-page="funcionarios">
+                    <i class="fas fa-wrench"></i>
+                    <span>Funcionários</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-user">
+                <div class="user-avatar"><i class="fas fa-user-cog"></i></div>
+                <div class="user-info">
+                    <span id="sidebar-user-name">Mecânico</span>
+                    <span id="sidebar-user-rank" class="rank">Cargo</span>
+                </div>
+            </div>
+
+            <button class="sidebar-close" id="btn-close">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Fechar</span>
+            </button>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+
+            <!-- ============ DASHBOARD ============ -->
+            <div class="page active" id="page-dashboard">
+                <div class="page-header">
+                    <h1><i class="fas fa-chart-line"></i> Dashboard</h1>
+                    <span class="page-subtitle">Visão geral da mecânica</span>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-diagnosticos">0</span>
+                            <span class="stat-label">Total de Vendas e Serviços</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange"><i class="fas fa-truck-pickup"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-guinchos">0</span>
+                            <span class="stat-label">Guinchos e SOS Realizados</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon pink"><i class="fas fa-wrench"></i></div>
+                        <div class="stat-info">
+                            <span class="stat-value" id="stat-medicos">0</span>
+                            <span class="stat-label">Mecânicos Online</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Chamados pendentes -->
+                    <div class="panel-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-bell"></i> Chamados Pendentes</h3>
+                            <span class="badge-count" id="pending-count">0</span>
+                        </div>
+                        <div class="card-body" id="dashboard-pending-list">
+                            <div class="empty-state">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Nenhum chamado pendente!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Últimos vendas e serviços -->
+                    <div class="panel-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-clipboard-list"></i> Últimos Vendas e Serviços</h3>
+                        </div>
+                        <div class="card-body" id="dashboard-diags-list">
+                            <div class="empty-state">
+                                <i class="fas fa-tags"></i>
+                                <p>Nenhum serviço realizado recente</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat -->
+                    <div class="panel-card chat-panel">
+                        <div class="card-header">
+                            <h3><i class="fas fa-comments"></i> Chat Interno</h3>
+                        </div>
+                        <div class="card-body chat-body" id="chat-messages">
+                            <div class="empty-state">
+                                <i class="fas fa-comment-slash"></i>
+                                <p>Nenhuma mensagem</p>
+                            </div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chat-input" placeholder="Digite uma mensagem..." maxlength="500">
+                            <button id="btn-send-chat"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ BUSCAR ============ -->
+            <div class="page" id="page-buscar">
+                <div class="page-header">
+                    <h1><i class="fas fa-search"></i> Buscar Cliente</h1>
+                </div>
+
+                <div class="search-bar-main">
+                    <i class="fas fa-id-card"></i>
+                    <input type="number" id="search-passport" placeholder="Digite o passaporte do cliente...">
+                    <button class="btn btn-primary" id="btn-search"><i class="fas fa-search"></i> Pesquisar</button>
+                </div>
+
+                <!-- Resultado da pesquisa -->
+                <div id="search-results" class="hidden">
+                    <div class="patient-card">
+                        <div class="patient-header">
+                            <div class="patient-avatar" id="patient-avatar-btn" title="Clique para tirar foto">
+                                <img id="patient-photo" src="" alt="Foto" onerror="this.style.display='none'">
+                                <div class="avatar-badge"><i class="fas fa-camera"></i></div>
+                            </div>
+                            <div class="patient-info-grid">
+                                <div class="info-item">
+                                    <i class="fas fa-user"></i>
+                                    <div>
+                                        <label>Nome Completo</label>
+                                        <span id="patient-name">-</span>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-id-badge"></i>
+                                    <div>
+                                        <label>Passaporte</label>
+                                        <span id="patient-passport">-</span>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-tags"></i>
+                                    <div>
+                                        <label>Registro</label>
+                                        <span id="patient-registration">-</span>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-birthday-cake"></i>
+                                    <div>
+                                        <label>Idade</label>
+                                        <span id="patient-age">-</span>
+                                    </div>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <label>Telefone</label>
+                                        <span id="patient-phone">-</span>
+                                    </div>
+                                </div>
+
+                                <div class="info-item">
+                                    <i class="fas fa-venus-mars"></i>
+                                    <div>
+                                        <label>Sexo</label>
+                                        <span id="patient-sex">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ações do cliente -->
+                    <div class="patient-actions">
+                        <button class="action-btn green" id="btn-diagnosticar"><i
+                                class="fas fa-file-invoice-dollar"></i> Anotar Venda</button>
+                    </div>
+
+                    <!-- Histórico -->
+                    <div class="history-section">
+                        <div class="history-header">
+                            <i class="fas fa-history"></i>
+                            <div>
+                                <h3>Histórico Mecânico</h3>
+                                <p>Registros mecânicos do cliente</p>
+                            </div>
+                        </div>
+
+                        <div class="result-tabs">
+                            <button class="tab-btn active" data-tab="hist-diagnosticos">Vendas e Serviços</button>
+                        </div>
+
+                        <div class="tab-content active" id="tab-hist-diagnosticos">
+                            <div class="table-container">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Mecânico</th>
+                                            <th>Serviço Realizado</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="hist-diag-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ BANCO ============ -->
+            <div class="page" id="page-banco">
+                <div class="page-header">
+                    <h1><i class="fas fa-university"></i> Cofre da Empresa</h1>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="panel-card" style="grid-column: 1 / -1;">
+                        <div class="card-header">
+                            <h3><i class="fas fa-wallet"></i> Saldo Atual</h3>
+                        </div>
+                        <div class="card-body" style="text-align: center; padding: 40px;">
+                            <h1 style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;" id="bank-balance">
+                                R$ 0,00</h1>
+                            <div style="display: flex; gap: 15px; justify-content: center;">
+                                <button class="btn btn-primary" id="btn-deposit-bank"><i class="fas fa-arrow-down"></i>
+                                    Depositar</button>
+                                <button class="btn btn-secondary" id="btn-withdraw-bank"
+                                    style="background: var(--accent-red); color: white;"><i class="fas fa-arrow-up"></i>
+                                    Sacar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container" style="margin-top: 20px;">
+                    <h3 style="margin-bottom: 15px; display:flex; align-items:center; gap: 10px;"><i
+                            class="fas fa-exchange-alt"></i> Últimas Transações</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th># ID</th>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bank-transactions-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ============ DIAGNÓSTICOS ============ -->
+            <div class="page" id="page-diagnosticos">
+                <div class="page-header">
+                    <h1><i class="fas fa-file-invoice-dollar"></i> Vendas e Serviços</h1>
+                    <button class="btn btn-primary" id="btn-novo-diag"><i class="fas fa-plus"></i> Novo Serviço
+                        Realizado</button>
+                </div>
+
+                <div class="filter-bar">
+                    <select id="diag-filter">
+                        <option value="all">Todos</option>
+                        <option value="Em peças instaladas">Em Peças Instaladas</option>
+                        <option value="Concluído">Concluídos</option>
+                    </select>
+                    <input type="text" id="diag-search" placeholder="Buscar serviço realizado...">
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Cliente</th>
+                                <th>Mecânico</th>
+                                <th>Serviço Realizado</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="diag-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <!-- ============ ATENDIMENTOS ============ -->
+            <div class="page" id="page-guinchos">
+                <div class="page-header">
+                    <h1><i class="fas fa-truck-pickup"></i> Guinchos e SOS</h1>
+                    <button class="btn btn-primary" id="btn-novo-attend"><i class="fas fa-plus"></i> Novo
+                        Chamado</button>
+                </div>
+
+                <div class="attend-grid" id="attend-grid">
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Nenhum chamado pendente!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ FUNCIONÁRIOS ============ -->
+            <div class="page" id="page-funcionarios">
+                <div class="page-header">
+                    <h1><i class="fas fa-wrench"></i> Funcionários</h1>
+                    <div class="header-actions">
+                        <input type="text" id="staff-search" placeholder="Buscar funcionário...">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Passaporte</th>
+                                <th>Nome</th>
+                                <th>Cargo</th>
+                                <th>Status</th>
+                                <th>Último Login</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="staff-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ============ MODAIS ============ -->
+
+    <!-- Modal Serviço Realizado -->
+    <div class="modal hidden" id="modal-diagnostico">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-invoice-dollar"></i> Novo Serviço Realizado</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Passaporte do Cliente</label>
+                    <input type="number" id="diag-patient" placeholder="Número do passaporte">
+                </div>
+                <div class="form-group">
+                    <label>Serviço Realizado</label>
+                    <textarea id="diag-diagnosis" placeholder="Descreva o serviço realizado detalhadamente..."
+                        rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Peças Instaladas Recomendadas</label>
+                    <textarea id="diag-treatment" placeholder="Descreva as peças instaladas ou recomendadas..."
+                        rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancelar</button>
+                <button class="btn btn-primary" id="btn-confirm-diag">Registrar Serviço Realizado</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Receita -->
+    <div class="modal hidden" id="modal-receita">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-prescription"></i> Pedido de Peças / Extras</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Passaporte do Cliente</label>
+                    <input type="number" id="receita-patient" placeholder="Número do passaporte">
+                </div>
+                <div class="form-group">
+                    <label>Peça / Item</label>
+                    <input type="text" id="receita-medication" placeholder="Nome da peça ou item">
+                </div>
+                <div class="form-group">
+                    <label>Dosagem</label>
+                    <input type="text" id="receita-dosage" placeholder="Ex: 1 comprimido a cada 8h">
+                </div>
+                <div class="form-group">
+                    <label>Observações</label>
+                    <textarea id="receita-notes" placeholder="Instruções adicionais..." rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancelar</button>
+                <button class="btn btn-primary" id="btn-confirm-receita">Emitir Receita</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Banco -->
+    <div class="modal hidden" id="modal-bank">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-university"></i> Transação do Cofre</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label id="bank-modal-title">Quantos dólares deseja transacionar?</label>
+                    <input type="number" id="bank-amount" placeholder="Valor em $">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancelar</button>
+                <button class="btn btn-primary" id="btn-confirm-bank">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Plano de Saúde -->
+    <div class="modal hidden" id="modal-plano">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-shield-alt"></i> Seguro de Veículo</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="plano-status-info"></div>
+                <div class="form-group" id="plano-type-group">
+                    <label>Tipo do Plano</label>
+                    <select id="plano-type">
+                        <option value="Básico">Básico</option>
+                        <option value="Padrão">Padrão</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="btn-remove-plano" style="display:none"><i class="fas fa-times"></i>
+                    Remover Plano</button>
+                <button class="btn btn-secondary modal-cancel">Cancelar</button>
+                <button class="btn btn-primary" id="btn-confirm-plano">Conceder Plano</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Guincho -->
+    <div class="modal hidden" id="modal-guincho">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-truck-pickup"></i> Novo Chamado</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Passaporte do Cliente</label>
+                    <input type="number" id="attend-patient" placeholder="Número do passaporte">
+                </div>
+                <div class="form-group">
+                    <label>Motivo</label>
+                    <textarea id="attend-reason" placeholder="Descreva a situação..." rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Localização</label>
+                    <input type="text" id="attend-location" placeholder="Ex: Ryze Custom Sul, Cidade">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancelar</button>
+                <button class="btn btn-primary" id="btn-confirm-attend">Criar Chamado</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Gerenciar Funcionário -->
+    <div class="modal hidden" id="modal-staff">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-cog"></i> Gerenciar Funcionário</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="staff-manage-info">
+                    <span>Nome: <b id="manage-staff-name">-</b></span>
+                    <span>Passaporte: <b id="manage-staff-passport">-</b></span>
+                    <span>Cargo Atual: <b id="manage-staff-rank">-</b></span>
+                </div>
+                <div class="form-group">
+                    <label>Alterar Cargo</label>
+                    <select id="manage-staff-level"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="btn-fire-staff"><i class="fas fa-user-minus"></i> Demitir</button>
+                <button class="btn btn-secondary modal-cancel">Cancelar</button>
+                <button class="btn btn-primary" id="btn-save-staff">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Contratar -->
+    <div class="modal hidden" id="modal-hire">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-plus"></i> Contratar Funcionário</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Passaporte do Cidadão</label>
+                    <input type="number" id="hire-passport" placeholder="Número do passaporte">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancelar</button>
+                <button class="btn btn-primary" id="btn-confirm-hire">Contratar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>
