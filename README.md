@@ -1,5 +1,8 @@
 🔧 Painel Mecânico - FiveM
 
+<img width="1602" height="901" alt="image" src="https://github.com/user-attachments/assets/13d617e1-a036-484f-b1e1-d8998395a77f" />
+
+
 Painel Mecânico desenvolvido para servidores FiveM, com foco em organização, desempenho e escalabilidade no gerenciamento de oficinas dentro do jogo.
 
 📌 Sobre o Projeto
