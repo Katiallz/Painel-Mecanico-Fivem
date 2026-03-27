@@ -72,3 +72,17 @@ este recurso sem a devida atribuição.
 Este projeto não possui licença pública definida.
 
 O uso está condicionado à autorização do autor.
+
+Se curtiu o painel, tenho outros sistemas no mesmo padrão também.
+
+Disponível:
+
+Police
+BurgerShot
+CatCafe
+Ilegal
+Hospital
+
+Os sistemas de BurgerShot e CatCafe já incluem loja própria, onde o jogador pode farmar os itens e colocar os produtos para venda diretamente no sistema.
+
+Se quiser mais detalhes ou ver funcionando, só entrar em contato para adquirir 
